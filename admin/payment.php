@@ -24,7 +24,7 @@
 <body>
 	<div class="searchsection">
         <input type="text" name="search_bar" id="search_bar" placeholder="search..." onkeyup="searchFun()">
-        <input type="text" date="search_bar" id="search_bar" placeholder="search..." obkeyup="searchfun()">
+        
     </div>
 
     <div class="roombooktable" class="table-responsive-xl">
@@ -88,28 +88,43 @@
 
 <script>
     //search bar logic using js
-    const searchFun = () =>{
-        let filter = document.getElementById('search_bar').value.toUpperCase();
-
-        let myTable = document.getElementById("table-data");
-
-        let tr = myTable.getElementsByTagName('tr');
-
-        for(var i = 0; i< tr.length;i++){
-            let td = tr[i].getElementsByTagName('td')[1];
-
-            if(td){
-                let textvalue = td.textContent || td.innerHTML;
-
-                if(textvalue.toUpperCase().indexOf(filter) > -1){
-                    tr[i].style.display = "";
-                }else{
-                    tr[i].style.display = "none";
-                }
-            }
+    // const searchFun = () =>{
+    //     let filter = document.getElementById('search_bar').value.toUpperCase();
+    //     let myTable = document.getElementById("table-data");
+    //     let tr = myTable.getElementsByTagName('tr');
+    //     for(var i = 0; i< tr.length;i++){
+    //         let td = tr[i].getElementsByTagName('td')[2];
+    //         if(td){
+    //             let textvalue = td.textContent || td.innerHTML;
+    //             if(textvalue.toUpperCase().indexOf(filter) > -1){
+    //                 tr[i].style.display = "";
+    //             }else{
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
+    //     }
+    // }
+    const searchFun = () => {
+  let filter = document.getElementById('search_bar').value.toUpperCase();
+  let myTable = document.getElementById('table-data');
+  let tr = myTable.getElementsByTagName('tr');
+  for (let i = 0; i < tr.length; i++) {
+    let cells = tr[i].getElementsByTagName('td');
+    let rowMatches = false;
+    for (let j = 0; j < cells.length; j++) {
+      let td = cells[j];
+      if (td) {
+        let textValue = td.textContent || td.innerHTML;
+        if (textValue.toUpperCase().indexOf(filter) > -1) {
+          rowMatches = true;
+          break;
         }
-
+      }
     }
+    tr[i].style.display = rowMatches ? '' : 'none';
+  }
+};
+
 
 </script>
 

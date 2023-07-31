@@ -1,32 +1,33 @@
 var detailpanel = document.getElementById("guestdetailpanel");
 
 adduseropen = () => {
-    detailpanel.style.display = "flex";
-}
+  detailpanel.style.display = "flex";
+};
 adduserclose = () => {
-    detailpanel.style.display = "none";
-}
+  detailpanel.style.display = "none";
+};
 
 //search bar logic using js
-const searchFun = () =>{
-    let filter = document.getElementById('search_bar').value.toUpperCase();
+const searchFun = () => {
+  const filter = document.getElementById("search_bar").value.toUpperCase();
+  const myTable = document.getElementById("table-data");
+  const tr = myTable.getElementsByTagName("tr");
 
-    let myTable = document.getElementById("table-data");
+  for (let i = 0; i < tr.length; i++) {
+    let rowVisible = false;
+    const tdList = tr[i].getElementsByTagName("td");
 
-    let tr = myTable.getElementsByTagName('tr');
-
-    for(var i = 0; i< tr.length;i++){
-        let td = tr[i].getElementsByTagName('td')[1];
-
-        if(td){
-            let textvalue = td.textContent || td.innerHTML;
-
-            if(textvalue.toUpperCase().indexOf(filter) > -1){
-                tr[i].style.display = "";
-            }else{
-                tr[i].style.display = "none";
-            }
+    for (let j = 0; j < tdList.length; j++) {
+      const td = tdList[j];
+      if (td) {
+        const textValue = td.textContent || td.innerHTML;
+        if (textValue.toUpperCase().indexOf(filter) > -1) {
+          rowVisible = true;
+          break;
         }
+      }
     }
 
-}
+    tr[i].style.display = rowVisible ? "" : "none";
+  }
+};
