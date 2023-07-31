@@ -77,7 +77,7 @@ if($usermail == true){
 
       <!-- bookbox -->
       <div id="guestdetailpanel">
-        <form action="" method="POST" class="guestdetailpanelform">
+        <form action="" method="POST" class="guestdetailpanelform" onsubmit="return validateForm()" id="reservation">
             <div class="head">
                 <h3>RESERVATION</h3>
                 <i class="fa-solid fa-circle-xmark" onclick="closebox()"></i>
@@ -141,11 +141,13 @@ if($usermail == true){
                     <div class="datesection">
                         <span>
                             <label for="cin"> Check-In</label>
-                            <input name="cin" type ="date" >
+                            <input name="cin" type="date" id="checkIn">
+                            <p id="checkInErr"></p>
                         </span>
                         <span>
                             <label for="cin"> Check-Out</label>
-                            <input name="cout" type ="date">
+                            <input name="cout" type="date" id="checkOut">
+                             <p id="checkOutErr"></p>
                         </span>
                     </div>
                 </div>
@@ -168,7 +170,6 @@ if($usermail == true){
                 $Meal = $_POST['Meal'];
                 $cin = $_POST['cin'];
                 $cout = $_POST['cout'];
-
                 if($Name == "" || $Email == "" || $Country == ""){
                     echo "<script>swal({
                         title: 'Fill the proper details',
@@ -180,8 +181,6 @@ if($usermail == true){
                     $sta = "NotConfirm";
                     $sql = "INSERT INTO roombook(Name,Email,Country,Phone,RoomType,Bed,NoofRoom,Meal,cin,cout,stat,nodays) VALUES ('$Name','$Email','$Country','$Phone','$RoomType','$Bed','$NoofRoom','$Meal','$cin','$cout','$sta',datediff('$cout','$cin'))";
                     $result = mysqli_query($conn, $sql);
-
-                    
                         if ($result) {
                             echo "<script>swal({
                                 title: 'Reservation successful',
@@ -305,5 +304,9 @@ if($usermail == true){
     closebox = () =>{
       bookbox.style.display = "none";
     }
+
+   
 </script>
+  <script src='./javascript/validations.js'> </script>
+
 </html>
